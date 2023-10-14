@@ -17,7 +17,7 @@ const config: Config = {
           dark3: '#060f01',
         },
         hcOrange: {
-          base: '#f05d23',
+          base: '#ca7558 ',
         },
         hcGrey: {
           dark: '#333333',

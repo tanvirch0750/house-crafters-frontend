@@ -39,17 +39,17 @@ const Navbar = ({
 
   return (
     <Layout className="layout">
-      <Header className="flex items-center px-3 lg:px-12 bg-white border-b-2  lg:h-24">
+      <Header className="flex items-center px-3 lg:px-12 bg-teal-50 lg:h-20">
         {/* Sider nav button for mobile device start */}
         {hasSider && (
           <Button
             type="primary"
-            className="lg:hidden"
+            className="lg:hidden bg-hcOrange-base"
             onClick={() => {
               dispatch(showSidebarDrawer());
             }}
           >
-            DB
+            Dashboard
           </Button>
         )}
         {/* Sider nav button for mobile device end */}
@@ -58,9 +58,9 @@ const Navbar = ({
         <Content>
           <Link href="/">
             <Title
-              className={`m-0 text-hcGreen-base text-lg lg:text-3xl font-bold ${
+              className={`m-0 text-teal-700 text-lg lg:text-2xl font-bold ${
                 hasSider &&
-                'text-center text-hcGreen-base text-lg lg:text-3xl lg:text-left'
+                'text-center text-hcGreen-base text-lg lg:text-2xl lg:text-left'
               }`}
             >
               House<span className=" text-hcOrange-base">Crafters</span>
@@ -71,7 +71,7 @@ const Navbar = ({
 
         {/* Desktop menubar start */}
         <Menu
-          className="lg:flex lg:items-center hidden bg-white text-hcGreen-base font-bold text-lg"
+          className="lg:flex lg:items-center hidden bg-teal-50 text-teal-700 font-bold text-base"
           disabledOverflow
           theme="dark"
           mode="horizontal"
