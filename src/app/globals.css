@@ -401,3 +401,17 @@ video {
 [hidden] {
   display: none;
 }
+
+/* custom css */
+.ant-layout {
+  background-color: 'red' !important;
+}
+
+.ant-menu-item-selected {
+  background-color: transparent !important;
+  color: #f05d23 !important;
+}
+
+.ant-menu .ant-menu-item a:hover {
+  color: #f05d23 !important;
+}
