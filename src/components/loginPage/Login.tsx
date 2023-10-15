@@ -1,11 +1,13 @@
 'use client';
 
-// import { sencondaryColor } from '@/constants/colors';
-// import { useUserLoginMutation } from '@/redux/api/authApi';
-// import { storeUserInfo } from '@/services/auth.service';
-import { Col, Row } from 'antd';
+import { useUserLoginMutation } from '@/redux/api/authApi';
+import { loginSchema } from '@/schemas/login';
+import { getUserInfo, storeUserInfo } from '@/services/auth.service';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Col, Row, message } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import Form from '../ui/Form/Form';
 import FormInput from '../ui/Form/FormInput';
@@ -16,22 +18,37 @@ type FormValues = {
 };
 
 function Login() {
-  //   const [userLogin] = useUserLoginMutation();
+  const [userLogin] = useUserLoginMutation();
   const router = useRouter();
+
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      console.log(data);
-      //   const res = await userLogin({ ...data }).unwrap();
+      const res = await userLogin({ ...data }).unwrap();
 
-      //   if (res?.accessToken) {
-      //     router.push('/profile');
-      //     message.success('User logged in successfully');
-      //   }
+      storeUserInfo({ accessToken: res?.data?.accessToken });
 
-      //   storeUserInfo({ accessToken: res?.accessToken });
-    } catch (error) {
+      if (res?.data?.accessToken) {
+        const { role } = getUserInfo() as any;
+        message.success('User logged in successfully');
+        if (role === 'customer') {
+          router.push('/my-profile');
+        }
+        if (role === 'admin') {
+          router.push('/admin/myProfile');
+        }
+        if (role === 'super_admin') {
+          router.push('/super-admin/my-profile');
+        }
+        if (role === 'team_member') {
+          router.push('/team-member/my-profile');
+        }
+      }
+    } catch (error: any) {
       console.log(error);
+      setErrorMessage(error.message);
+      message.error('something went wrong, try again');
     }
   };
 
@@ -48,12 +65,16 @@ function Login() {
           Login first before decorate your house
         </h1>
         <div>
-          <Form submitHandler={onSubmit} isReset={false}>
+          <Form
+            submitHandler={onSubmit}
+            isReset={false}
+            resolver={yupResolver(loginSchema)}
+          >
             <div>
               <FormInput
                 type="text"
                 size="large"
-                name="id"
+                name="email"
                 label="Your Email"
                 required
               />
@@ -78,6 +99,9 @@ function Login() {
               Login
             </button>
           </Form>
+          {errorMessage && (
+            <p className="mt-2 text-red-500 text-base">{errorMessage}</p>
+          )}
           <p className="mt-1">
             Do not have an account? <Link href="/register">Signup first</Link>
           </p>

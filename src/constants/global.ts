@@ -12,3 +12,5 @@ export const genderOptions = [
     value: 'others',
   },
 ];
+
+export const authKey = 'accessToken';
