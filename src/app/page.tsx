@@ -1,7 +1,6 @@
 import HomeBanner from '@/components/homePage/Banner';
 import CallToAction from '@/components/homePage/CallToAction';
 import Categories from '@/components/homePage/Categories';
-import FeaturedIn from '@/components/homePage/FeaturedIn';
 import LatestBlogs from '@/components/homePage/LatestBlogs';
 import Overview from '@/components/homePage/Overview';
 import Services from '@/components/homePage/Services';
@@ -17,12 +16,12 @@ export default function Home() {
       </div>
       <PublicHeader />
       <HomeBanner />
-      <FeaturedIn />
+      {/* <FeaturedIn /> */}
       <Overview />
       <Categories />
       <Services />
-      <UpcomingService />
       <CallToAction />
+      <UpcomingService />
       <LatestBlogs />
       <Showcase />
     </main>
