@@ -13,5 +13,9 @@ export const baseApi = createApi({
     tagTypes.serviceCategory,
     tagTypes.specialization,
     tagTypes.serviceTeam,
+    tagTypes.service,
+    tagTypes.availableService,
+    tagTypes.upcomingService,
+    tagTypes.teamMember,
   ],
 });
