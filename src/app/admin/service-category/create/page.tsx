@@ -29,7 +29,7 @@ const CreateCategoryPage = () => {
         items={[{ label: 'Category List', link: `/${base}/service-category` }]}
       />
       <h1 className="mt-8 text-teal-950 text-2xl font-bold mb-6">
-        Create Department
+        Create Service Category
       </h1>
       <Form submitHandler={onSubmit}>
         <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
