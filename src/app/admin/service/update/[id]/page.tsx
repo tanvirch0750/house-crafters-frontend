@@ -46,7 +46,7 @@ const ServiceUpdatePage = ({ params }: IDProps) => {
     description: data?.data?.description || '',
     price: data?.data?.price || '',
     imageUrl: data?.data?.imageUrl || '',
-    serviceCategoryId: data?.data?.serviceCategory.categoryName || '',
+    serviceCategoryId: data?.data?.serviceCategoryId || '',
   };
 
   return (
