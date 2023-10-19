@@ -1,3 +1,6 @@
 export const getBaseUrl = (): string => {
-  return 'https://house-crafters.vercel.app/api/v1';
+  return (
+    process.env.NEXT_PUBLIC_API_BASE_URL ||
+    'https://house-crafters.vercel.app/api/v1'
+  );
 };
