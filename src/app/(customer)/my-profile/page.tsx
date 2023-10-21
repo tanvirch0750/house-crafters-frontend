@@ -27,6 +27,9 @@ function CustomerMyProfilePage() {
     }
     try {
       //   console.log(data);
+      if (!values.password) {
+        delete values.password;
+      }
       const res = await updateProfile({ body: values });
       responseMessage(res, 'Profile updated successfully');
     } catch (err: any) {
@@ -39,7 +42,6 @@ function CustomerMyProfilePage() {
   const defaultValues = {
     fullName: profileData?.fullName || '',
     email: profileData?.email || '',
-    password: profileData?.password || '',
     contactNumber: profileData?.contactNumber || '',
     gender: profileData?.gender || '',
     profileImageUrl: profileData?.profileImageUrl || '',
@@ -73,7 +75,6 @@ function CustomerMyProfilePage() {
               size="large"
               name="fullName"
               label="Your Full Name"
-              required
             />
           </Col>
           <Col span={8} style={{ margin: '10px 0' }}>
@@ -82,7 +83,6 @@ function CustomerMyProfilePage() {
               size="large"
               name="email"
               label="Your Email"
-              required
             />
           </Col>
           <Col span={8} style={{ margin: '10px 0' }}>
@@ -91,18 +91,8 @@ function CustomerMyProfilePage() {
               size="large"
               name="contactNumber"
               label="Your Phone Number"
-              required
             />
           </Col>
-          {/* <Col span={8} style={{ margin: '10px 0' }}>
-            <FormInput
-              type="password"
-              size="large"
-              name="password"
-              label="Your Password"
-              required
-            />
-          </Col> */}
         </Row>
         <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
           <Col span={8} style={{ margin: '10px 0' }}>
@@ -131,6 +121,14 @@ function CustomerMyProfilePage() {
               name="address"
               label="User Address"
               required
+            />
+          </Col>
+          <Col span={8} style={{ margin: '10px 0' }}>
+            <FormInput
+              type="password"
+              size="large"
+              name="password"
+              label="Your New Password"
             />
           </Col>
         </Row>
