@@ -38,7 +38,13 @@ function AddReview({ serviceId }: { serviceId: string }) {
   };
   return (
     <div>
-      <h2 className="text-lg text-teal-950 mb-3 font-semibold">Your Review:</h2>
+      <h2 className="text-lg text-teal-950 mb-3 font-semibold">
+        Your Review:{' '}
+        <span className="text-sm font-normal text-gray-500">
+          (You Can only give review if you have confirmed booking of this
+          service)
+        </span>
+      </h2>
       <form
         className=" max-w-[400px] bg-teal-50 p-4 rounded-md"
         onSubmit={onSubmit}
