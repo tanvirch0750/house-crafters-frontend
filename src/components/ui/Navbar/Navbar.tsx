@@ -1,5 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
+
 'use client';
 import { authKey } from '@/constants/global';
+import { useProfileQuery } from '@/redux/api/profileApi';
 import { useAppDispatch } from '@/redux/hooks';
 import { showSidebarDrawer } from '@/redux/slices/sidebarSlice';
 import {
@@ -7,8 +10,18 @@ import {
   isLoggedIn,
   removeUserInfo,
 } from '@/services/auth.service';
-import { MenuOutlined } from '@ant-design/icons';
-import { Button, Drawer, Layout, Menu, Typography } from 'antd';
+import { MenuOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  Avatar,
+  Button,
+  Drawer,
+  Dropdown,
+  Layout,
+  Menu,
+  MenuProps,
+  Space,
+  Typography,
+} from 'antd';
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -18,7 +31,7 @@ const { Header, Content } = Layout;
 const { Title } = Typography;
 
 const Navbar = ({
-  items,
+  items: navItems,
   hasSider,
 }: {
   items: { key: string; label: string; href: string }[];
@@ -29,6 +42,9 @@ const Navbar = ({
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const { role } = getUserInfo() as any;
+  // @ts-ignore
+  const { data, isLoading } = useProfileQuery();
+  const profileData = data?.profileData;
 
   const showDrawer = () => {
     setOpen(true);
@@ -49,6 +65,52 @@ const Navbar = ({
     removeUserInfo(authKey);
     router.push('/signin');
   };
+
+  const items: MenuProps['items'] = [
+    {
+      key: '0',
+      label: (
+        <Button
+          type="primary"
+          size="large"
+          onClick={() => {
+            router.push('/dashboard');
+          }}
+          className=" bg-teal-700 px-6 w-ful"
+        >
+          Dashboard
+        </Button>
+      ),
+    },
+    {
+      key: '1',
+      label: (
+        <Button
+          type="primary"
+          size="large"
+          onClick={() => {
+            router.push('/my-profile');
+          }}
+          className=" bg-teal-700 px-6 w-full"
+        >
+          My Profile
+        </Button>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <Button
+          size="large"
+          type="primary"
+          className=" bg-hcOrange-base w-full px-6"
+          onClick={logOut}
+        >
+          Sign Out
+        </Button>
+      ),
+    },
+  ];
 
   return (
     <Layout className="layout">
@@ -90,7 +152,7 @@ const Navbar = ({
           mode="horizontal"
           selectedKeys={[pathname]}
         >
-          {items?.map((item) => (
+          {navItems?.map((item) => (
             <Menu.Item key={item.href}>
               <Link href={item.href}>{item.label}</Link>
             </Menu.Item>
@@ -102,16 +164,27 @@ const Navbar = ({
                   <Menu.Item key="/feedback">
                     <Link href="/feedback">Feedback & Faq</Link>
                   </Menu.Item>
-                  <Button
-                    type="primary"
-                    size="large"
-                    onClick={() => {
-                      router.push('/dashboard');
-                    }}
-                    className="ml-6 bg-teal-700 px-6"
-                  >
-                    Dashboard
-                  </Button>
+                  <Dropdown menu={{ items }} className="ml-6">
+                    <a>
+                      <Space wrap size={20} className="">
+                        {profileData ? (
+                          <img
+                            src={profileData?.profileImageUrl}
+                            alt="avatar image"
+                            width={50}
+                            height={50}
+                            className=" rounded-full border-2 border-teal-700"
+                          />
+                        ) : (
+                          <Avatar
+                            size="large"
+                            className=" bg-teal-700"
+                            icon={<UserOutlined style={{ color: 'white' }} />}
+                          />
+                        )}
+                      </Space>
+                    </a>
+                  </Dropdown>
                 </>
               )}
               {role === 'admin' && (
@@ -125,6 +198,14 @@ const Navbar = ({
                     className="ml-6 bg-teal-700 px-6"
                   >
                     Dashboard
+                  </Button>
+                  <Button
+                    size="large"
+                    type="primary"
+                    className=" bg-hcOrange-base px-6 ml-6"
+                    onClick={logOut}
+                  >
+                    Sign Out
                   </Button>
                 </>
               )}
@@ -140,16 +221,16 @@ const Navbar = ({
                   >
                     Dashboard
                   </Button>
+                  <Button
+                    size="large"
+                    type="primary"
+                    className=" bg-hcOrange-base px-6 ml-6"
+                    onClick={logOut}
+                  >
+                    Sign Out
+                  </Button>
                 </>
               )}
-              <Button
-                size="large"
-                type="primary"
-                className=" bg-hcOrange-base px-6 ml-6"
-                onClick={logOut}
-              >
-                Sign Out
-              </Button>
             </>
           ) : (
             <>
@@ -193,7 +274,7 @@ const Navbar = ({
             selectedKeys={[pathname]}
             style={{ borderRight: 0 }}
           >
-            {items?.map((item) => (
+            {navItems?.map((item) => (
               <Menu.Item key={item.href}>
                 <Link href={item.href}>{item.label}</Link>
               </Menu.Item>
