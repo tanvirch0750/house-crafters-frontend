@@ -177,7 +177,7 @@ const CustomerBookingListPage = () => {
 
   return (
     <div>
-      <ActionBar title="Services List">
+      <ActionBar title="My Bookings">
         <Input
           type="text"
           size="large"

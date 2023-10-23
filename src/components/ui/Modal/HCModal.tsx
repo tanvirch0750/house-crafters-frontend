@@ -4,11 +4,14 @@ import { ReactElement, ReactNode } from 'react';
 interface IModal {
   isOpen: boolean;
   closeModal: () => void;
-  title: string | ReactNode;
+  title?: string | ReactNode;
   children: ReactElement;
   handleOk?: () => void;
   showCancelButton?: boolean;
+  confirmLoading?: boolean;
   showOkButton?: boolean;
+  handleChange?: () => void;
+  okText?: string;
 }
 
 const HCModal = ({
@@ -17,15 +20,20 @@ const HCModal = ({
   title,
   children,
   handleOk,
+  confirmLoading,
   showCancelButton = true,
   showOkButton = true,
+  okText,
 }: IModal) => {
   return (
     <Modal
       title={title}
       open={isOpen}
+      okText={okText}
       onOk={handleOk}
+      centered
       onCancel={closeModal}
+      confirmLoading={confirmLoading}
       cancelButtonProps={{
         style: {
           display: showCancelButton ? 'inline' : 'none',

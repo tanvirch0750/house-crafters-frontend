@@ -1,7 +1,8 @@
 import { useAddBookingMutation } from '@/redux/api/bookingApi';
+import { useProfileQuery } from '@/redux/api/profileApi';
 import { getUserInfo, isLoggedIn } from '@/services/auth.service';
 import { responseMessage } from '@/utils/responseMessage';
-import { message } from 'antd';
+import { Select, message } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import HCModal from '../ui/Modal/HCModal';
@@ -20,6 +21,16 @@ function Slots({ slots, data: serviceData, date }: props) {
   const { role, userId } = getUserInfo() as any;
   const [addBooking, { isLoading }] = useAddBookingMutation();
   const router = useRouter();
+  const [paymentMethodSelect, setPaymentMethodSelect] =
+    useState('cashOnDelivery');
+
+  // @ts-ignore
+  const { data: pData } = useProfileQuery();
+  const profileData = pData?.profileData;
+
+  const onChange = (value: string) => {
+    setPaymentMethodSelect(value);
+  };
 
   const bookingHandler = async (data: any) => {
     if (isLoading) {
@@ -33,7 +44,7 @@ function Slots({ slots, data: serviceData, date }: props) {
         userId: userId,
         slotId: data?.id,
         serviceId: serviceData.data?.id,
-        paymentMethod: 'cashOnDelivery',
+        paymentMethod: paymentMethodSelect,
       };
       console.log(bookingData);
       const res = await addBooking(bookingData);
@@ -99,78 +110,65 @@ function Slots({ slots, data: serviceData, date }: props) {
       ))}
 
       <HCModal
-        title="Book Service"
         isOpen={open}
         closeModal={() => setOpen(false)}
         handleOk={() => bookingHandler(slotData)}
+        confirmLoading={isLoading}
+        okText="Confirm Booking"
       >
-        <p className="my-5">Do you want to book this service?</p>
+        <div>
+          <h2 className="my-5 text-lg text-teal-700 font-bold">
+            Book {serviceData?.data?.service?.serviceName} service
+          </h2>
+          <div>
+            <p>Booking Date:</p>
+            <input
+              required
+              value={date}
+              // onChange={onChange}
+              className="w-full py-3 px-3 rounded-md border border-gray-100"
+              disabled
+            />
+          </div>
+          <div className="mt-4">
+            <p>Time:</p>
+            <input
+              placeholder="Give Your Feedback"
+              required
+              // @ts-ignore
+              value={slotData?.startTime}
+              // onChange={onChange}
+              disabled
+              className="w-full py-3 px-3 rounded-md border border-gray-100"
+            />
+          </div>
+          <div className="mt-4">
+            <p>Address:</p>
+            <input
+              placeholder="Give Your Feedback"
+              required
+              // value={review}
+              // onChange={onChange}
+              className="w-full py-3 px-3 rounded-md border border-gray-100"
+              value={profileData?.address}
+              disabled
+            />
+          </div>
+          <div className="mt-4 mb-4">
+            <p>Select Payment Method:</p>
+            <Select
+              onChange={onChange}
+              style={{ width: '100%' }}
+              options={[
+                { value: 'cashOnDelivery', label: 'Cash On Delivery' },
+                { value: 'online', label: 'Online' },
+              ]}
+            />
+          </div>
+        </div>
       </HCModal>
     </div>
   );
 }
 
 export default Slots;
-
-{
-  /* <div
-          key={slot?.id}
-          className="p-6 text-center bg-hcOrange-base rounded-lg text-white"
-        >
-          <p>Start Time: {slot.startTime}</p>
-          {/* <p>Team Name: Apollo</p> */
-}
-// {isUserLoggedIn && role === 'customer' ? (
-//   <button
-//     className="text-white bg-teal-700 px-16 py-2 mt-2 rounded-md"
-//     onClick={() => {
-//       setOpen(true);
-//       setSlotData(slot);
-//     }}
-//   >
-//     Book Now
-//   </button>
-// ) : (
-//   <button
-//     disabled
-//     className="text-white bg-teal-700 px-16 py-2 mt-2 rounded-md"
-//   >
-//     Login first
-//   </button>
-// )}
-// </div> } */
-
-{
-  /* <div className="max-w-7xl mx-auto">
-<div className="relative group">
-  <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-  <div className="relative px-7 py-6 bg-white ring-1 ring-gray-900/5 rounded-lg leading-none flex items-top justify-start space-x-6">
-    <svg
-      className="w-8 h-8 text-purple-600"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="1.5"
-        d="M6.75 6.75C6.75 5.64543 7.64543 4.75 8.75 4.75H15.25C16.3546 4.75 17.25 5.64543 17.25 6.75V19.25L12 14.75L6.75 19.25V6.75Z"
-      ></path>
-    </svg>
-    <div className="space-y-2">
-      <p className="text-slate-800">
-        Learn how to make a glowing gradient background!
-      </p>
-      <a
-        href="https://braydoncoyer.dev/blog/tailwind-gradients-how-to-make-a-glowing-gradient-background"
-        className="block text-indigo-400 group-hover:text-slate-800 transition duration-200"
-        target="_blank"
-      >
-        Read Article →
-      </a>
-    </div>
-  </div>
-</div>
-</div> */
-}
