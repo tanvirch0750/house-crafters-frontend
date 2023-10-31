@@ -32,8 +32,6 @@ const CreateAvailableServicePage = () => {
 
       responseMessage(res, 'Available service created Successfully');
     } catch (err: any) {
-      console.log(err);
-
       message.error(err.message || 'Something went wrong try again');
     }
   };

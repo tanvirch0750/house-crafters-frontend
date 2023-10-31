@@ -73,7 +73,6 @@ const UpcomingServiceListPage = () => {
                   margin: '0px 5px',
                 }}
                 className="bg-teal-700 flex items-center"
-                onClick={() => console.log(data)}
                 type="primary"
               >
                 <EditOutlined />

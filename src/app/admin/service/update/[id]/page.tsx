@@ -31,11 +31,9 @@ const ServiceUpdatePage = ({ params }: IDProps) => {
       message.loading('Updating.....');
     }
     try {
-      //   console.log(data);
       const res = await updateService({ id, body: finalData });
       responseMessage(res, 'Service updated successfully');
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };

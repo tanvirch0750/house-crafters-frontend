@@ -24,11 +24,9 @@ const FaqUpdatePage = ({ params }: IDProps) => {
       message.loading('Updating.....');
     }
     try {
-      //   console.log(data);
       const res = await updateFaq({ id, body: values });
       responseMessage(res, 'Faq updated successfully');
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };

@@ -28,8 +28,6 @@ const CreateUpcomingServicePage = () => {
 
       responseMessage(res, 'Upcoming service created Successfully');
     } catch (err: any) {
-      console.log(err);
-
       message.error(err.message || 'Something went wrong try again');
     }
   };

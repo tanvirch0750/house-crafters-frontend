@@ -38,12 +38,10 @@ const AvailableServiceUpdatePage = ({ params }: IDProps) => {
         isAvailable: updatedIsAvailable,
       };
 
-      //   console.log(data);
       const res = await updateAvailableService({ id, body: updatedData });
 
       responseMessage(res, 'Service updated successfully');
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };
@@ -54,8 +52,6 @@ const AvailableServiceUpdatePage = ({ params }: IDProps) => {
     isFeatured: String(data?.data?.isFeatured) || '',
     isAvailable: String(data?.data?.isAvailable) || '',
   };
-
-  console.log(defaultValues);
 
   return (
     <div>

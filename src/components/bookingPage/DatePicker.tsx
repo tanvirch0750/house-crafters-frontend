@@ -14,8 +14,6 @@ type pro = {
 /* eslint-disable @next/next/no-img-element */
 // @ts-ignore
 function DatePicker({ setDate, slots, data, date, refetch }: pro) {
-  console.log(data);
-
   const onSelect = (newValue: Dayjs) => {
     setDate(newValue.format('YYYY-MM-DD'));
   };

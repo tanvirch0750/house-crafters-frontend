@@ -62,7 +62,6 @@ const CustomerBookingListPage = () => {
         responseMessage(res, 'Booking cancel Successfully');
       }
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };
@@ -112,19 +111,17 @@ const CustomerBookingListPage = () => {
       render: function (data: any) {
         return (
           <div className="flex items-center justify-end">
-            {data.status === 'confirmed' ||
-              (data.status === 'pending' && (
-                <Link
-                  href={`/my-bookings/${data?.id}`}
-                  style={{
-                    margin: '0px 5px',
-                  }}
-                  className="bg-hcOrange-base flex text-white items-center cursor-pointer px-3 py-1 rounded-md"
-                  type="primary"
-                >
-                  Details
-                </Link>
-              ))}
+            <Link
+              href={`/my-bookings/${data?.id}`}
+              style={{
+                margin: '0px 5px',
+              }}
+              className="bg-hcOrange-base flex text-white items-center cursor-pointer px-3 py-1 rounded-md"
+              type="primary"
+            >
+              Details
+            </Link>
+
             {data?.payment?.paymentMethod === 'online' &&
               data.status === 'pending' && (
                 <Button

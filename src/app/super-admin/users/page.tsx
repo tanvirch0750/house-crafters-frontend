@@ -50,7 +50,6 @@ const SAUsersListPage = () => {
   const madkeAdminHandler = async () => {
     message.loading('Creating...');
     try {
-      console.log(userData);
       const updatedData = {
         role: 'admin',
       };
@@ -61,7 +60,6 @@ const SAUsersListPage = () => {
         responseMessage(res, 'Role changed to admin Successfully');
       }
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };
@@ -69,7 +67,6 @@ const SAUsersListPage = () => {
   const makeUserHandler = async () => {
     message.loading('Creating...');
     try {
-      console.log(userData);
       const updatedData = {
         role: 'customer',
       };
@@ -80,7 +77,6 @@ const SAUsersListPage = () => {
         responseMessage(res, 'Role changed to coustomer Successfully');
       }
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };

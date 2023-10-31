@@ -37,12 +37,10 @@ const UpcomingServiceUpdatePage = ({ params }: IDProps) => {
         status: updatedStatus,
       };
 
-      //   console.log(data);
       const res = await updateUpcomingService({ id, body: updatedData });
 
       responseMessage(res, 'Service updated successfully');
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };

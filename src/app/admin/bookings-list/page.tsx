@@ -52,19 +52,17 @@ const BookingListPage = () => {
   const cancelHandler = async () => {
     message.loading('Cancelling.....');
     try {
-      console.log(bookingData);
       const data = {
         bookingId: bookingData?.id,
         paymentId: bookingData?.payment.id,
       };
-      console.log(data);
+
       const res = await cacelBooking(data);
       if (res) {
         setCancelOpen(false);
         responseMessage(res, 'Booking cancel Successfully');
       }
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };
@@ -72,19 +70,17 @@ const BookingListPage = () => {
   const finishHandler = async () => {
     message.loading('Completing.....');
     try {
-      console.log(bookingData);
       const data = {
         bookingId: bookingData?.id,
         paymentId: bookingData?.payment.id,
       };
-      console.log(data);
+
       const res = await finishBooking(data);
       if (res) {
         setFinishOpen(false);
         responseMessage(res, 'Booking completed Successfully');
       }
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };

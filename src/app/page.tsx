@@ -51,6 +51,12 @@ export default async function Home() {
   });
   const { data: blogsData } = await blogs.json();
 
+  const feedbacks = await fetch(`${baseUrl}/feedback`, {
+    cache: 'no-store',
+  });
+  const { data: feedbacksData } = await feedbacks.json();
+  const firstSixFeedbacks = feedbacksData.slice(0, 6);
+
   return (
     <main>
       <div className=" bg-teal-700 text-center text-sm py-2 px-2 text-white">
@@ -64,7 +70,7 @@ export default async function Home() {
       <Services featuredServices={updatedFeaturedServices} />
       <CallToAction />
       <UpcomingService upcomingServices={upcomingServiesData} />
-      <Reviews />
+      <Reviews feedbacks={firstSixFeedbacks} />
       <LatestBlogs blogs={blogsData} />
       <Showcase />
     </main>

@@ -21,8 +21,6 @@ const CreateAdminPage = () => {
 
       responseMessage(res, 'Admin Created Successfully');
     } catch (err: any) {
-      console.log(err);
-
       message.error(err.message || 'Something went wrong try again');
     }
   };

@@ -15,8 +15,11 @@ const SingleBookingPage = ({ params }: IDProps) => {
     bookingId: bookingId,
   });
 
-  const { date, payment, service, slot, status, pending, time, weekDay } =
-    data?.data;
+  if (isLoading) {
+    return <HCLoading />;
+  }
+
+  const { date, payment, service, status, time, weekDay } = data?.data;
 
   const items: DescriptionsProps['items'] = [
     {
@@ -30,7 +33,7 @@ const SingleBookingPage = ({ params }: IDProps) => {
     {
       label: 'Date',
       span: { xl: 2, xxl: 2 },
-      children: date,
+      children: date ? date : '',
     },
     {
       label: 'Time',
@@ -69,10 +72,6 @@ const SingleBookingPage = ({ params }: IDProps) => {
         payment?.paymentMethod === 'online' ? 'Online' : 'Cash On Delivery',
     },
   ];
-
-  if (isLoading) {
-    return <HCLoading />;
-  }
 
   return (
     <div className=" pt-7">

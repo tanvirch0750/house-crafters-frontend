@@ -27,12 +27,10 @@ const ServiceCategoryUpdatePage = ({ params }: IDProps) => {
       message.loading('Updating.....');
     }
     try {
-      //   console.log(data);
       const res = await updateServiceCategory({ id, body: values });
 
       responseMessage(res, 'Category updated successfully');
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };

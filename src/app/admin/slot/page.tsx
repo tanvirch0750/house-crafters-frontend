@@ -58,7 +58,6 @@ const SlotListPage = () => {
         responseMessage(res, 'Slot Deleted Successfully');
       }
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };
@@ -95,7 +94,6 @@ const SlotListPage = () => {
                   margin: '0px 5px',
                 }}
                 className="bg-teal-700 flex items-center"
-                onClick={() => console.log(data)}
                 type="primary"
               >
                 <EditOutlined />

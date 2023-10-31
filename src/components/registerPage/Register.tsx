@@ -41,7 +41,6 @@ function RegisterForm() {
       }
 
       message.error(errorMessage || 'Something went worng');
-      console.log(error);
     }
   };
 

@@ -28,11 +28,9 @@ const ServiceTeamUpdatePage = ({ params }: IDProps) => {
       message.loading('Updating.....');
     }
     try {
-      //   console.log(data);
       const res = await updateServiceTeam({ id, body: values });
       responseMessage(res, 'Service Team updated successfully');
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };

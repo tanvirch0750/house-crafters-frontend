@@ -18,8 +18,6 @@ const CreateSpecializationPage = () => {
 
       responseMessage(res, 'Specialization added Successfully');
     } catch (err: any) {
-      console.log(err);
-
       message.error(err.message || 'Something went wrong try again');
     }
   };

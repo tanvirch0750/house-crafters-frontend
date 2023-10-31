@@ -25,14 +25,12 @@ function AddReview({ serviceId }: { serviceId: string }) {
       rating: value,
       review: review,
     };
-    console.log(data);
+
     message.loading('Adding Review...');
     try {
       const res = await addReviewAndRating(data);
       responseMessage(res, 'Review added Successfully');
     } catch (err: any) {
-      console.log(err);
-
       message.error(err.message || 'Something went wrong try again');
     }
   };

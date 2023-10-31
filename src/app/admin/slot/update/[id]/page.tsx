@@ -26,11 +26,9 @@ const UpdateSlotPage = ({ params }: IDProps) => {
       message.loading('Updating.....');
     }
     try {
-      //   console.log(data);
       const res = await updateSlot({ id, body: values });
       responseMessage(res, 'Slot updated successfully');
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };

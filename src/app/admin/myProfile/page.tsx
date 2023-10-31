@@ -27,14 +27,12 @@ function MyProfilePage() {
       message.loading('Updating.....');
     }
     try {
-      //   console.log(data);
       if (!values.password) {
         delete values.password;
       }
       const res = await updateProfile({ body: values });
       responseMessage(res, 'Profile updated successfully');
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };

@@ -15,7 +15,6 @@ const CustomerHeader = () => {
     { key: '7', label: 'My Profile', href: '/my-profile' },
   ];
 
-  console.log(items);
   return <Navbar items={items} hasSider />;
 };
 

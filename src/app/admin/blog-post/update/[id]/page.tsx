@@ -24,12 +24,10 @@ const UpdateBlogPage = ({ params }: IDProps) => {
       message.loading('Updating.....');
     }
     try {
-      //   console.log(data);
       const res = await updateBlog({ id, body: values });
 
       responseMessage(res, 'Blog updated successfully');
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };

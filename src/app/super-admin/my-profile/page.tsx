@@ -29,11 +29,10 @@ function SuperAdminMyProfilePage() {
       if (!values.password) {
         delete values.password;
       }
-      //   console.log(data);
+
       const res = await updateProfile({ body: values });
       responseMessage(res, 'Profile updated successfully');
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };

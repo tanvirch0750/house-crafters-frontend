@@ -1,7 +1,8 @@
 import ClientReviewCard from '../common/ClientReviewCard';
 
 /* eslint-disable react/no-unescaped-entities */
-function Reviews() {
+// @ts-ignore
+function Reviews({ feedbacks }) {
   return (
     <div>
       <section className="bg-hcOrange-base">
@@ -12,9 +13,9 @@ function Reviews() {
           </h2>
 
           <div className="mb-5 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:mb-8">
-            <ClientReviewCard />
-            <ClientReviewCard />
-            <ClientReviewCard />
+            {feedbacks?.map((feedback: any) => (
+              <ClientReviewCard key={feedback?.id} feedback={feedback} />
+            ))}
           </div>
           {/* <div className="flex flex-col items-center justify-center">
             <a href="#" className="font-bold text-black">
