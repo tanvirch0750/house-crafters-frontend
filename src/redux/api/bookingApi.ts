@@ -49,8 +49,8 @@ export const bookingApi = baseApi.injectEndpoints({
 
     // get single by id
     getSingleBooking: build.query({
-      query: (id) => ({
-        url: `${BOOKING}/${id}`,
+      query: (data) => ({
+        url: `${BOOKING}/${data?.bookingId}`,
         method: 'GET',
       }),
       providesTags: [tagTypes.booking],

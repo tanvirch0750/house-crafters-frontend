@@ -5,6 +5,7 @@ import { responseMessage } from '@/utils/responseMessage';
 import { Select, message } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 import HCModal from '../ui/Modal/HCModal';
 
 /* eslint-disable react/no-unescaped-entities */
@@ -38,7 +39,6 @@ function Slots({ slots, data: serviceData, date }: props) {
     }
 
     try {
-      console.log(serviceData);
       const bookingData = {
         date: date,
         userId: userId,
@@ -46,7 +46,7 @@ function Slots({ slots, data: serviceData, date }: props) {
         serviceId: serviceData.data?.id,
         paymentMethod: paymentMethodSelect,
       };
-      console.log(bookingData);
+
       const res = await addBooking(bookingData);
 
       if (res) {
@@ -54,11 +54,11 @@ function Slots({ slots, data: serviceData, date }: props) {
 
         responseMessage(res, 'Service Booked Successfully');
         if ('data' in res && res.data) {
+          Swal.fire('Thank You', 'Service Booked Successfully', 'success');
           router.push('/my-bookings');
         }
       }
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };

@@ -12,6 +12,7 @@ import {
 } from '@/redux/api/bookingApi';
 import { responseMessage } from '@/utils/responseMessage';
 import { Button, Input, message } from 'antd';
+import Link from 'next/link';
 import { useState } from 'react';
 
 const CustomerBookingListPage = () => {
@@ -24,7 +25,7 @@ const CustomerBookingListPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const [cancelOpen, setCancelOpen] = useState<boolean>(false);
-  const [finishOpen, setFinishOpen] = useState<boolean>(false);
+
   const [bookingData, setBookingData] = useState<any>(null);
 
   query['limit'] = size;
@@ -54,7 +55,7 @@ const CustomerBookingListPage = () => {
         bookingId: bookingData?.id,
         paymentId: bookingData?.payment.id,
       };
-      console.log(data);
+
       const res = await cacelBooking(data);
       if (res) {
         setCancelOpen(false);
@@ -75,36 +76,72 @@ const CustomerBookingListPage = () => {
       title: 'Date',
       dataIndex: 'date',
     },
-    {
-      title: 'Time',
-      dataIndex: ['slot', 'startTime'],
-    },
 
-    {
-      title: 'Address',
-      dataIndex: ['user', 'address'],
-    },
-
-    {
-      title: 'Status',
-      dataIndex: 'status',
-    },
+    // {
+    //   title: 'Status',
+    //   dataIndex: 'status',
+    // },
 
     {
       title: 'Payment Method',
-      dataIndex: ['payment', 'paymentMethod'],
+      render: function (data: any) {
+        if (data?.payment?.paymentMethod === 'cashOnDelivery') {
+          return 'Cash On Delivery';
+        } else {
+          return 'Online';
+        }
+      },
     },
 
     {
       title: 'Payment Status',
-      dataIndex: ['payment', 'paymentStatus'],
+      render: function (data: any) {
+        if (data?.payment?.paymentStatus === 'notPaid') {
+          return 'Not Paid';
+        } else if (data?.payment?.paymentStatus === 'rejected') {
+          return 'Rejected';
+        } else if (data?.payment?.paymentStatus === 'paid') {
+          return 'Paid';
+        }
+      },
+      // dataIndex: ['payment', 'paymentStatus'],
     },
 
     {
       title: 'Action',
       render: function (data: any) {
         return (
-          <div className="flex items-center">
+          <div className="flex items-center justify-end">
+            {data.status === 'confirmed' ||
+              (data.status === 'pending' && (
+                <Link
+                  href={`/my-bookings/${data?.id}`}
+                  style={{
+                    margin: '0px 5px',
+                  }}
+                  className="bg-hcOrange-base flex text-white items-center cursor-pointer px-3 py-1 rounded-md"
+                  type="primary"
+                >
+                  Details
+                </Link>
+              ))}
+            {data?.payment?.paymentMethod === 'online' &&
+              data.status === 'pending' && (
+                <Button
+                  disabled
+                  style={{
+                    margin: '0px 5px',
+                  }}
+                  className="bg-teal-700 flex text-white items-center cursor-pointer"
+                  // onClick={() => {
+                  //   setCancelOpen(true);
+                  //   setBookingData(data);
+                  // }}
+                  type="primary"
+                >
+                  Pay
+                </Button>
+              )}
             {data.status === 'rejected' && (
               <Button
                 disabled
@@ -142,7 +179,7 @@ const CustomerBookingListPage = () => {
                 style={{
                   margin: '0px 5px',
                 }}
-                className="bg-red-700 flex items-center"
+                className="bg-red-700 flex items-center cursor-pointer"
                 onClick={() => {
                   setCancelOpen(true);
                   setBookingData(data);
@@ -172,7 +209,7 @@ const CustomerBookingListPage = () => {
   const resetFilters = () => {
     setSortBy('');
     setSortOrder('');
-    setSearchTerm('');
+    +setSearchTerm('');
   };
 
   return (
