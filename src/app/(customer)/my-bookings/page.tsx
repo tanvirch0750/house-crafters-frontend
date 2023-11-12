@@ -10,6 +10,7 @@ import {
   useBookingsQuery,
   useCacelBookingMutation,
 } from '@/redux/api/bookingApi';
+import { useInitiatePaymentMutation } from '@/redux/api/paymentApi';
 import { responseMessage } from '@/utils/responseMessage';
 import { Button, Input, message } from 'antd';
 import Link from 'next/link';
@@ -44,6 +45,7 @@ const CustomerBookingListPage = () => {
   }
   const { data, isLoading } = useBookingsQuery({ ...query });
   const [cacelBooking] = useCacelBookingMutation();
+  const [initiatePayment] = useInitiatePaymentMutation();
 
   const bookings = data?.bookings;
   const meta = data?.meta;
@@ -61,6 +63,30 @@ const CustomerBookingListPage = () => {
         setCancelOpen(false);
         responseMessage(res, 'Booking cancel Successfully');
       }
+    } catch (err: any) {
+      message.error(err.message);
+    }
+  };
+
+  // @ts-ignore
+  const handlePayment = async () => {
+    message.loading('Starting Payment...');
+    try {
+      const data = {
+        bookingId: bookingData?.id,
+      };
+
+      const res = await initiatePayment(data);
+
+      // @ts-ignore
+      if (res?.data?.data) {
+        // @ts-ignore
+        window.location.replace(res?.data?.data);
+      }
+
+      // if (res?.data?.data) {
+      //   responseMessage(res, 'Payment Successful');
+      // }
     } catch (err: any) {
       message.error(err.message);
     }
@@ -125,15 +151,14 @@ const CustomerBookingListPage = () => {
             {data?.payment?.paymentMethod === 'online' &&
               data.status === 'pending' && (
                 <Button
-                  disabled
                   style={{
                     margin: '0px 5px',
                   }}
                   className="bg-teal-700 flex text-white items-center cursor-pointer"
-                  // onClick={() => {
-                  //   setCancelOpen(true);
-                  //   setBookingData(data);
-                  // }}
+                  onClick={() => {
+                    setBookingData(data);
+                    handlePayment();
+                  }}
                   type="primary"
                 >
                   Pay
