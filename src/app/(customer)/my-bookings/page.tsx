@@ -69,11 +69,11 @@ const CustomerBookingListPage = () => {
   };
 
   // @ts-ignore
-  const handlePayment = async () => {
+  const handlePayment = async (bookingId: string) => {
     message.loading('Starting Payment...');
     try {
       const data = {
-        bookingId: bookingData?.id,
+        bookingId: bookingId,
       };
 
       const res = await initiatePayment(data);
@@ -155,10 +155,7 @@ const CustomerBookingListPage = () => {
                     margin: '0px 5px',
                   }}
                   className="bg-teal-700 flex text-white items-center cursor-pointer"
-                  onClick={() => {
-                    setBookingData(data);
-                    handlePayment();
-                  }}
+                  onClick={() => handlePayment(data?.id)}
                   type="primary"
                 >
                   Pay
