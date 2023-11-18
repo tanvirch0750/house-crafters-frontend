@@ -1,4 +1,5 @@
 import { useAvailableServicesQuery } from '@/redux/api/availableServiceApi';
+import HCLoading from '../Loading/HCLoading';
 import FormSelectField, { SelectOptions } from './FormSelectField';
 
 type AvailableServiceFieldProps = {
@@ -23,6 +24,10 @@ const AvailableServiceField = ({
       value: service?.id,
     };
   });
+
+  if (isLoading) {
+    return <HCLoading />;
+  }
 
   return (
     <FormSelectField

@@ -52,13 +52,13 @@ const ServiceUpdatePage = ({ params }: IDProps) => {
       <HCBreadCrumbs
         items={[
           {
-            label: 'Category List',
+            label: 'Services',
             link: '/admin/service',
           },
         ]}
       />
 
-      <ActionBar title="Update Service Category"> </ActionBar>
+      <ActionBar title="Update Service"> </ActionBar>
       <Form submitHandler={onSubmit} defaultValues={defaultValues}>
         <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
           <Col span={8} style={{ margin: '10px 0' }}>
