@@ -102,6 +102,19 @@ function Login() {
             Do not have an account? <Link href="/register">Signup first</Link>
           </p>
         </div>
+
+        <div className="mt-6">
+          <p>
+            All the login credentials for checking purpose is in here (readme.md
+            file),{' '}
+            <Link
+              href="https://github.com/tanvirch0750/house-crafters-frontend"
+              target="_blank"
+            >
+              Login Credentials
+            </Link>
+          </p>
+        </div>
       </Col>
     </Row>
   );

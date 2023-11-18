@@ -424,3 +424,7 @@ video {
 .ant-input-search-button {
   background-color: #ca7558 !important;
 }
+
+div:where(.css-nllxry).ant-spin {
+  color: #0f766e !important;
+}
