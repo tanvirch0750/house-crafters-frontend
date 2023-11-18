@@ -49,18 +49,19 @@ export default async function Home() {
   const blogs = await fetch(`${baseUrl}/blog?page=1&limit=6`, {
     cache: 'no-store',
   });
-  const { data: blogsData } = await blogs.json();
+  const { data: blogsData } = await blogs?.json();
 
   const feedbacks = await fetch(`${baseUrl}/feedback`, {
     cache: 'no-store',
   });
-  const { data: feedbacksData } = await feedbacks.json();
-  const firstSixFeedbacks = feedbacksData.slice(0, 6);
+  const { data: feedbacksData } = await feedbacks?.json();
+  const firstSixFeedbacks = feedbacksData?.slice(0, 6);
 
   return (
     <main>
-      <div className=" bg-teal-700 text-center text-sm py-2 px-2 text-white">
-        Protect and Decorate Your Home With our Best House Crafters
+      <div className=" bg-teal-700 text-sm py-2 text-white flex justify-between px-5 md:px-10">
+        <p>Protect and Decorate Your Home With our Best House Crafters</p>
+        <p>407 Motijil, Dhaka. Phone: +8801302047933</p>
       </div>
       <PublicHeader />
       <HomeBanner />
