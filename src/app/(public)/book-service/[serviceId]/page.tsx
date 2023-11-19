@@ -42,8 +42,6 @@ function BookServiceSinglePage({ params }: IDProps) {
     return <HCLoading />;
   }
 
-  console.log(avgRatData);
-
   const { serviceName, service, price, slots, totalServiceProvided } =
     data?.data;
 

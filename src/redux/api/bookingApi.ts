@@ -26,7 +26,7 @@ export const bookingApi = baseApi.injectEndpoints({
         method: 'POST',
         data,
       }),
-      invalidatesTags: [tagTypes.booking],
+      invalidatesTags: [tagTypes.booking, tagTypes.notification],
     }),
 
     cacelBooking: build.mutation({
@@ -35,7 +35,7 @@ export const bookingApi = baseApi.injectEndpoints({
         method: 'PATCH',
         data: data.body,
       }),
-      invalidatesTags: [tagTypes.booking],
+      invalidatesTags: [tagTypes.booking, tagTypes.notification],
     }),
 
     finishBooking: build.mutation({
@@ -44,7 +44,7 @@ export const bookingApi = baseApi.injectEndpoints({
         method: 'PATCH',
         data: data.body,
       }),
-      invalidatesTags: [tagTypes.booking],
+      invalidatesTags: [tagTypes.booking, tagTypes.notification],
     }),
 
     // get single by id
@@ -63,7 +63,7 @@ export const bookingApi = baseApi.injectEndpoints({
         method: 'PATCH',
         data: data.body,
       }),
-      invalidatesTags: [tagTypes.booking],
+      invalidatesTags: [tagTypes.booking, tagTypes.notification],
     }),
 
     // delete single by id

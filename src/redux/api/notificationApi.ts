@@ -6,10 +6,9 @@ const NOTIFICATION = '/notification';
 export const notificationApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     notifications: build.query({
-      query: (arg: Record<string, any>) => ({
-        url: NOTIFICATION,
+      query: () => ({
+        url: `${NOTIFICATION}/my-notification`,
         method: 'GET',
-        params: arg,
       }),
       transformResponse: (response: any) => {
         return {
@@ -49,6 +48,16 @@ export const notificationApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.notification],
     }),
 
+    // update single by id
+    updateAllNotification: build.mutation({
+      query: (data) => ({
+        url: `${NOTIFICATION}/update-all`,
+        method: 'PATCH',
+        data: data.body,
+      }),
+      invalidatesTags: [tagTypes.notification],
+    }),
+
     // delete single by id
     deleteNotification: build.mutation({
       query: (id) => ({
@@ -66,4 +75,5 @@ export const {
   useDeleteNotificationMutation,
   useNotificationsQuery,
   useNotificationQuery,
+  useUpdateAllNotificationMutation,
 } = notificationApi;

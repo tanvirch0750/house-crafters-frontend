@@ -2,6 +2,7 @@
 
 'use client';
 import { authKey } from '@/constants/global';
+import { useNotificationsQuery } from '@/redux/api/notificationApi';
 import { useProfileQuery } from '@/redux/api/profileApi';
 import { useAppDispatch } from '@/redux/hooks';
 import { showSidebarDrawer } from '@/redux/slices/sidebarSlice';
@@ -10,9 +11,14 @@ import {
   isLoggedIn,
   removeUserInfo,
 } from '@/services/auth.service';
-import { MenuOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  MenuOutlined,
+  NotificationOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import {
   Avatar,
+  Badge,
   Button,
   Drawer,
   Dropdown,
@@ -43,8 +49,15 @@ const Navbar = ({
   const [open, setOpen] = useState(false);
   const { role } = getUserInfo() as any;
   // @ts-ignore
-  const { data, isLoading } = useProfileQuery();
+  const { data } = useProfileQuery();
   const profileData = data?.profileData;
+
+  const { data: notificationsData, isLoading } = useNotificationsQuery({});
+  const notifications = notificationsData?.notifications;
+  const notificatiosLength = notifications?.filter(
+    // @ts-ignore
+    (noti) => noti?.readStatus === false
+  )?.length;
 
   const showDrawer = () => {
     setOpen(true);
@@ -164,6 +177,18 @@ const Navbar = ({
                   <Menu.Item key="/feedback">
                     <Link href="/feedback">Feedback & Faq</Link>
                   </Menu.Item>
+                  <Link href="/my-messages">
+                    <Badge count={notificatiosLength}>
+                      <Avatar
+                        size="large"
+                        className=" bg-teal-700"
+                        icon={
+                          <NotificationOutlined style={{ color: 'white' }} />
+                        }
+                      />
+                    </Badge>
+                  </Link>
+
                   <Dropdown menu={{ items }} className="ml-6">
                     <a>
                       <Space wrap size={20} className="">

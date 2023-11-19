@@ -11,7 +11,7 @@ export const paymentApi = baseApi.injectEndpoints({
         method: 'PATCH',
         data: data.body,
       }),
-      invalidatesTags: [tagTypes.booking],
+      invalidatesTags: [tagTypes.booking, tagTypes.notification],
     }),
   }),
 });
