@@ -7,6 +7,7 @@ import AllReviews from '@/components/bookingPage/AllReviews';
 import DatePicker from '@/components/bookingPage/DatePicker';
 import HCLoading from '@/components/ui/Loading/HCLoading';
 import { useRemainingServiceQuery } from '@/redux/api/availableServiceApi';
+import { useGetAverageRatingQuery } from '@/redux/api/reviewAndRatingApi';
 import { isLoggedIn } from '@/services/auth.service';
 import { getTodaysDate } from '@/utils/getTodaysDate';
 import { Rate } from 'antd';
@@ -28,6 +29,8 @@ function BookServiceSinglePage({ params }: IDProps) {
   };
 
   const { data, isLoading, refetch } = useRemainingServiceQuery(paramData);
+  const { data: avgRatData, isLoading: avgRatLoading } =
+    useGetAverageRatingQuery(serviceId);
 
   useEffect(() => {
     if (date) {
@@ -35,9 +38,11 @@ function BookServiceSinglePage({ params }: IDProps) {
     }
   }, [date, refetch]);
 
-  if (isLoading) {
+  if (isLoading || avgRatLoading) {
     return <HCLoading />;
   }
+
+  console.log(avgRatData);
 
   const { serviceName, service, price, slots, totalServiceProvided } =
     data?.data;
@@ -67,7 +72,11 @@ function BookServiceSinglePage({ params }: IDProps) {
 
             <div className="mt-4 text-teal-950 text-lg font-bold">
               <span>Average Rating:</span>
-              <Rate disabled defaultValue={5} className="ml-4" />
+              <Rate
+                disabled
+                defaultValue={avgRatData?.data || 5}
+                className="ml-4"
+              />
             </div>
 
             <p className="text-teal-950 text-lg mt-4">

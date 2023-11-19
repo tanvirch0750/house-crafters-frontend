@@ -39,6 +39,15 @@ export const reviewAndRatingApi = baseApi.injectEndpoints({
       providesTags: [tagTypes.reviewAndRating],
     }),
 
+    // get single by id
+    getAverageRating: build.query({
+      query: (id) => ({
+        url: `${REVIEW_AND_RATING}/average-rating/${id}`,
+        method: 'GET',
+      }),
+      providesTags: [tagTypes.reviewAndRating],
+    }),
+
     // update single by id
     updateReviewAndRating: build.mutation({
       query: (data) => ({
@@ -66,4 +75,5 @@ export const {
   useReviewAndRatingsQuery,
   useReviewAndRatingQuery,
   useUpdateReviewAndRatingMutation,
+  useGetAverageRatingQuery,
 } = reviewAndRatingApi;
