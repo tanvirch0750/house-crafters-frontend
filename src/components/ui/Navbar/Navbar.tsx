@@ -203,7 +203,7 @@ const Navbar = ({
                         ) : (
                           <Avatar
                             size="large"
-                            className=" bg-teal-700"
+                            className=" bg-teal-700 w-[50px] h-[50px]"
                             icon={<UserOutlined style={{ color: 'white' }} />}
                           />
                         )}

@@ -44,18 +44,20 @@ function MyMessagePage() {
     <div>
       <ActionBar title="My Messages">
         <div className="flex items-center">
-          <Button
-            type="primary"
-            className="bg-hcOrange-base"
-            disabled={updateLoading}
-            onClick={handleUpdateLoading}
-          >
-            Mark them as all read
-          </Button>
+          {notifications?.length > 0 && (
+            <Button
+              type="primary"
+              className="bg-hcOrange-base"
+              disabled={updateLoading}
+              onClick={handleUpdateLoading}
+            >
+              Mark them as all read
+            </Button>
+          )}
         </div>
       </ActionBar>
       <Space direction="vertical" style={{ width: '100%' }}>
-        {
+        {notifications?.length > 0 ? (
           // @ts-ignore
           notifications?.map((noti) => {
             return (
@@ -67,7 +69,9 @@ function MyMessagePage() {
               />
             );
           })
-        }
+        ) : (
+          <p>No Message Found</p>
+        )}
         {/* <Alert
           message="Success Text"
           description="Success Description Success Description Success Description"

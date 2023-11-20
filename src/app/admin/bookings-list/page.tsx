@@ -11,6 +11,7 @@ import {
   useCacelBookingMutation,
   useFinishBookingMutation,
 } from '@/redux/api/bookingApi';
+import { useAddNotificationMutation } from '@/redux/api/notificationApi';
 import { responseMessage } from '@/utils/responseMessage';
 import { Button, Input, message } from 'antd';
 import { useState } from 'react';
@@ -26,6 +27,7 @@ const BookingListPage = () => {
 
   const [cancelOpen, setCancelOpen] = useState<boolean>(false);
   const [finishOpen, setFinishOpen] = useState<boolean>(false);
+  const [reminderOpen, setReminderOpen] = useState<boolean>(false);
   const [bookingData, setBookingData] = useState<any>(null);
 
   query['limit'] = size;
@@ -45,6 +47,7 @@ const BookingListPage = () => {
   const { data, isLoading } = useBookingsQuery({ ...query });
   const [cacelBooking] = useCacelBookingMutation();
   const [finishBooking] = useFinishBookingMutation();
+  const [addNotification] = useAddNotificationMutation();
 
   const bookings = data?.bookings;
   const meta = data?.meta;
@@ -79,6 +82,26 @@ const BookingListPage = () => {
       if (res) {
         setFinishOpen(false);
         responseMessage(res, 'Booking completed Successfully');
+      }
+    } catch (err: any) {
+      message.error(err.message);
+    }
+  };
+
+  const reminderHandler = async () => {
+    message.loading('Sending reminder...');
+    try {
+      const data = {
+        userId: bookingData?.userId,
+        readStatus: false,
+        message: `Reminder: We will provided this ${bookingData?.service?.serviceName} on this date: ${bookingData?.date}, time: ${bookingData?.slot?.startTime}`,
+        type: 'reminder',
+      };
+
+      const res = await addNotification(data);
+      if (res) {
+        setReminderOpen(false);
+        responseMessage(res, 'Reminder send Successfully');
       }
     } catch (err: any) {
       message.error(err.message);
@@ -129,7 +152,19 @@ const BookingListPage = () => {
             >
               cancel
             </Button>
-
+            <Button
+              style={{
+                margin: '0px 5px',
+              }}
+              className="bg-orange-700 flex items-center"
+              onClick={() => {
+                setReminderOpen(true);
+                setBookingData(data);
+              }}
+              type="primary"
+            >
+              Reminder
+            </Button>
             <Button
               onClick={() => {
                 setFinishOpen(true);
@@ -224,6 +259,14 @@ const BookingListPage = () => {
         handleOk={() => finishHandler()}
       >
         <p className="my-5">Do you want to complete this booking?</p>
+      </HCModal>
+      <HCModal
+        title="Send Reminder"
+        isOpen={reminderOpen}
+        closeModal={() => setReminderOpen(false)}
+        handleOk={() => reminderHandler()}
+      >
+        <p className="my-5">Do you want to send the reminder?</p>
       </HCModal>
     </div>
   );
