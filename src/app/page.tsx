@@ -14,10 +14,7 @@ import { getBaseUrl } from '@/helpers/config/envConfig';
 export default async function Home() {
   const baseUrl = getBaseUrl();
   const featuredRes = await fetch(
-    `${baseUrl}/available-service?page=1&limit=30`,
-    {
-      cache: 'no-store',
-    }
+    `${baseUrl}/available-service?page=1&limit=30`
   );
   const { data: featuredServices } = await featuredRes.json();
   const updatedFeaturedServices = featuredServices?.filter(
@@ -25,19 +22,11 @@ export default async function Home() {
     (service) => service.isFeatured === true
   );
 
-  const categories = await fetch(
-    `${baseUrl}/service-category?page=1&limit=30`,
-    {
-      cache: 'no-store',
-    }
-  );
+  const categories = await fetch(`${baseUrl}/service-category?page=1&limit=30`);
   const { data: categoriesData } = await categories.json();
 
   const upcomingService = await fetch(
-    `${baseUrl}/upcoming-service?page=1&limit=30`,
-    {
-      cache: 'no-store',
-    }
+    `${baseUrl}/upcoming-service?page=1&limit=30`
   );
   const { data: upcomingServies } = await upcomingService.json();
 
@@ -46,14 +35,10 @@ export default async function Home() {
     (service) => service?.status === true
   );
 
-  const blogs = await fetch(`${baseUrl}/blog?page=1&limit=6`, {
-    cache: 'no-store',
-  });
+  const blogs = await fetch(`${baseUrl}/blog?page=1&limit=6`);
   const { data: blogsData } = await blogs?.json();
 
-  const feedbacks = await fetch(`${baseUrl}/feedback`, {
-    cache: 'no-store',
-  });
+  const feedbacks = await fetch(`${baseUrl}/feedback`);
   const { data: feedbacksData } = await feedbacks?.json();
   const firstSixFeedbacks = feedbacksData?.slice(0, 6);
 
