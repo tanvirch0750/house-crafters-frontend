@@ -27,7 +27,7 @@ function Overview() {
               <div className="flex items-stretch justify-center">
                 <Link
                   href="/available-services"
-                  className="px-8 py-4 rounded-md text-white text-lg bg-hcOrange-base"
+                  className="px-8 py-4 text-white text-lg bg-hcOrange-base"
                 >
                   Our Services
                 </Link>

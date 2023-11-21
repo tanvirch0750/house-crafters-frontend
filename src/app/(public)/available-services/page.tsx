@@ -114,7 +114,7 @@ function AvailableServicePage() {
               </p>
             </div>
           </div>
-          <div className="bg-teal-50 w-full mb-14 px-12 py-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-4 lg:gap-6 justify-items-center sm:justify-items-stretch">
+          <div className="bg-teal-700 w-full mb-14 px-12 py-8 rounded-md grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-4 lg:gap-6 justify-items-center sm:justify-items-stretch">
             <Search
               placeholder="input service name"
               enterButton="Search"
@@ -122,6 +122,7 @@ function AvailableServicePage() {
               onChange={(e) => {
                 setSearchTerm(e.target.value);
               }}
+              style={{ backgroundColor: 'white', borderRadius: '10px' }}
             />
             <Select
               showSearch
@@ -132,16 +133,18 @@ function AvailableServicePage() {
               options={categoryOptions}
             />
             <Space wrap>
-              <span>Filter By Price:</span>
+              <span className="text-white">Filter By Price:</span>
               <InputNumber
                 size="large"
                 onChange={onMInPriceChange}
                 placeholder="Min Price"
+                style={{ backgroundColor: 'white', borderRadius: '10px' }}
               />
               <InputNumber
                 size="large"
                 placeholder="Max Price"
                 onChange={onMaxPriceChange}
+                style={{ backgroundColor: 'white', borderRadius: '10px' }}
               />
             </Space>
             {/* <Button
@@ -160,7 +163,7 @@ function AvailableServicePage() {
               <ServiceCard key={service.id} service={service} />
             ))}
           </div>
-          <div className="mt-6">
+          <div className="mt-6 bg-teal-50 px-4 py-4">
             <Pagination defaultCurrent={1} total={20} onChange={onChange} />
           </div>
         </div>

@@ -265,7 +265,7 @@ const Navbar = ({
                 onClick={() => {
                   router.push('/signin');
                 }}
-                className="ml-6 bg-hcOrange-base px-6"
+                className="ml-6 bg-teal-700 px-6"
               >
                 Sign In
               </Button>

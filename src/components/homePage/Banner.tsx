@@ -13,7 +13,7 @@ const HomeBanner = () => (
         </h1>
         <Link
           href="/available-services"
-          className="px-8 py-4 rounded-md text-white text-lg bg-hcOrange-base"
+          className="px-8 py-4 text-white text-lg bg-hcOrange-base"
         >
           Our Services
         </Link>
@@ -28,7 +28,7 @@ const HomeBanner = () => (
         </h1>
         <Link
           href="/available-services"
-          className="px-8 py-4 rounded-md text-white text-lg bg-hcOrange-base"
+          className="px-8 py-4 text-white text-lg bg-hcOrange-base"
         >
           Our Services
         </Link>
@@ -43,7 +43,7 @@ const HomeBanner = () => (
         </h1>
         <Link
           href="/available-services"
-          className="px-8 py-4 rounded-md text-white text-lg bg-hcOrange-base"
+          className="px-8 py-4 text-white text-lg bg-hcOrange-base"
         >
           Our Services
         </Link>

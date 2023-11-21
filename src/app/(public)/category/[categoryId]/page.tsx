@@ -18,9 +18,10 @@ function ServiceByCategoryPage({ params }: IDProps) {
 
   const availableServices = data?.availableServices;
 
-  const { data: serviceData } = useServiceCategoryQuery(categoryId);
+  const { data: serviceData, isLoading: categoryLoading } =
+    useServiceCategoryQuery(categoryId);
 
-  if (isLoading) {
+  if (isLoading || categoryLoading) {
     return <HCLoading />;
   }
 
